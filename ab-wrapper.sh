@@ -133,7 +133,7 @@ fi
 
 # Store test summary results to summary.txt
 echo -e "${out}" > ${AB_OUTPUT_FILE}
-echo -e "${out}"
+echo -e "\n${out}\n\n"
 
 ##### Plot results
 
