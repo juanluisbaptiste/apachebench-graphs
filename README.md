@@ -95,6 +95,8 @@ Percentage of the requests served within a certain time (ms)
 
 ### Plot templates
 
+You can use templates to customize the graphs. Please refere to [gnuplot](http://www.gnuplot.info/documentation.html) documentation for that. These are the default templates:
+
 * [values.p](example_results/values.p)
 * [percentages.p](example_results/percentages.p)
 
