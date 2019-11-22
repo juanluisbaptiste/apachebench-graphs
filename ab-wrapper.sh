@@ -76,7 +76,7 @@ do
        ;;
     E) EXTRA_ARGS="${OPTARG}"
        ;;
-    n) NUM_REQUESTS="${OPTARG:-1}"
+    n) NUM_REQUESTS="${OPTARG}"
        ;;
     u) URL="${OPTARG}"
        ;;
@@ -111,6 +111,7 @@ mkdir -p ${RESULTS_PATH}
 
 echo -e "${0} - version ${VERSION}\n"
 
+
 if [ "${CONCURRENCY}" == "" ]; then
   echo "No concurrency set, using default value of ${DEFAULT_CONCURRENCY} simultanious clients"
   CONCURRENCY=${DEFAULT_CONCURRENCY}
@@ -123,8 +124,8 @@ fi
 
 # Run test
 AB_COMMAND="${AB_BIN} ${KEEPALIVE} -c ${CONCURRENCY} -n ${NUM_REQUESTS} -e ${CSV_RESULTS_FILE} -g ${PLOT_FILE} ${EXTRA_ARGS} ${URL}/ "
-
 echo -e "\n${AB_COMMAND}\n"
+
 out="$(${AB_COMMAND})"
 
 if [ $? -gt 0 ]; then
@@ -138,12 +139,10 @@ echo -e "${out}" > ${AB_OUTPUT_FILE}
 echo -e "\n${out}\n\n"
 
 ##### Plot results
-
-# Define plot lines
-
 # Render values template
 cd ${RESULTS_PATH} || exit
 echo -e "Plotting values results..."
+# Define plot lines
 PLOT_LINES="\"${PLOT_FILE}\" using 9 smooth sbezier with lines title \"${HOSTNAME}\""
 IMAGE_FILE="$(basename ${PLOT_FILE})"
 rendered_values_template=$(render_template_values)
