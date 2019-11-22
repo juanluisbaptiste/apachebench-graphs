@@ -5,7 +5,7 @@
 	set output \"${IMAGE_FILE}.png\"
 
 	# graph a title
-	set title \"${HOSTNAME}\"
+	set title \"# Requests: ${NUM_REQUESTS} | Concurrency: ${CONCURRENCY} - ${HOSTNAME}\"
 
 	# nicer aspect ratio for image size
 	set size 1,0.7
