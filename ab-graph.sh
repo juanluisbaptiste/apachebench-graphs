@@ -1,4 +1,15 @@
 #!/bin/bash
+#
+# Helper script for apachebench to automate the plotting of test results using
+# gnuplot.
+#
+# This script will plot apachebench results using gnuplot, and store test results
+# in $PWD/results/website/date/. The script will create the plot files for gnuplot
+# using the templates in the templates directory. It will also save apachebench
+# output in a file called summary.txt.
+#
+# Author: Juan Luis Baptiste <juan _at_ juanbaptiste _dot_ net>
+#
 
 
 AB_BIN=/usr/bin/ab
@@ -11,18 +22,23 @@ DEFAULT_NUM_REQUESTS=1
 usage()
 {
 cat << EOF
-Wrapper script for Apache Bench that also plots the results.
+Helper script for Apache Bench that also plots the results.
 
 Usage: $0 OPTIONS
 
 OPTIONS:
--c    Concurrent connections
--k    Enable keepalive
+-c    Concurrent connections  (default: 1)
+-k    Enable keepalive        (defalt: no)
 -E    Extra parameters
--n    Number of requests
--u    Url to test
+-n    Number of requests      (default: 1)
+-u    Url to test             (mandatory)
 -h    Print help.
 -V    Debug mode.
+
+This script will plot apachebench results using gnuplot, and store test results
+in $PWD/results/website/date/. The script will create the plot files for gnuplot
+using the templates in the templates directory. It will also save apachebench output in a file
+called summary.txt
 
 EOF
 }
@@ -67,9 +83,6 @@ while getopts c:kE:n:u:hV option
 do
   case "${option}"
   in
-    V) set -x
-       ;;
-
     c) CONCURRENCY="${OPTARG}"
        ;;
     k) KEEPALIVE=" -k "
@@ -82,6 +95,8 @@ do
        ;;
     h) usage
        exit
+       ;;
+    V) set -x
        ;;
     ?) usage
        exit
