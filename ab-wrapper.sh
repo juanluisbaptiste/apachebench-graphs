@@ -141,10 +141,13 @@ echo -e "${out}" > ${AB_OUTPUT_FILE}
 # Define plot lines
 
 # Render values template
+cd ${RESULTS_PATH} || exit
 echo -e "Plotting values results..."
 PLOT_LINES="\"${PLOT_FILE}\" using 9 smooth sbezier with lines title \"${HOSTNAME}\""
 IMAGE_FILE="$(basename ${PLOT_FILE})"
 rendered_values_template=$(render_template_values)
+# Plot results
+${GNUPLOT_BIN} ${rendered_values_template}
 echo -e "Done."
 
 # Render percentages template
@@ -154,11 +157,9 @@ IMAGE_FILE="$(basename ${CSV_RESULTS_FILE})"
 fix_csv_results="$(sed 1d ${CSV_RESULTS_FILE})"
 echo ${fix_csv_results}> ${CSV_RESULTS_FILE}
 rendered_percentages_template=$(render_template_percentages)
+# Plot results
+${GNUPLOT_BIN} ${rendered_percentages_template}
 echo -e "Done."
 
-# Plot results
 
-cd ${RESULTS_PATH} || exit
-${GNUPLOT_BIN} ${rendered_values_template}
-${GNUPLOT_BIN} ${rendered_percentages_template}
 cd .. || exit
