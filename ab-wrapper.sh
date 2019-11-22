@@ -13,13 +13,14 @@ usage()
 cat << EOF
 Wrapper script for Apache Bench that also plots the results.
 
-Usage: $0 [OPTIONS] URL
+Usage: $0 OPTIONS
 
 OPTIONS:
 -c    Concurrent connections
 -k    Enable keepalive
 -E    Extra parameters
 -n    Number of requests
+-u    Url to test
 -h    Print help.
 -V    Debug mode.
 
@@ -62,7 +63,7 @@ function ctrl_c() {
 }
 
 
-while getopts c:kE:n:hV option
+while getopts c:kE:n:u:hV option
 do
   case "${option}"
   in
@@ -77,6 +78,8 @@ do
        ;;
     n) NUM_REQUESTS="${OPTARG:-1}"
        ;;
+    u) URL="${OPTARG}"
+       ;;
     h) usage
        exit
        ;;
@@ -87,7 +90,6 @@ do
 done
 
 #Parameter validation
-URL=${1}
 if [ $# -lt 1 ] || [ "${URL}" == "" ]; then
   usage
   exit 1
