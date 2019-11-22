@@ -152,7 +152,7 @@ echo -e "Plotting values results..."
 # Define plot lines
 PLOT_LINES="\"${PLOT_FILE}\" using 9 smooth sbezier with lines title \"${HOSTNAME}\""
 IMAGE_FILE="$(basename ${PLOT_FILE})"
-rendered_values_template=$(render_template_values)
+rendered_values_template=$(render_template ${PLOT_TEMPLATE_FILE} "${RESULTS_PATH}/values.p")
 
 # Plot results
 GNUPLOT_COMMAND="${GNUPLOT_BIN} ${rendered_values_template}"
@@ -166,7 +166,7 @@ echo -e "Plotting percentages results..."
 sed 1d ${CSV_RESULTS_FILE} > ${CSV_RESULTS_FILE}.fixed
 PLOT_LINES="\"${CSV_RESULTS_FILE}.fixed\"  with lines title \"${HOSTNAME}\""
 IMAGE_FILE="$(basename ${CSV_RESULTS_FILE})"
-rendered_percentages_template=$(render_template_percentages)
+rendered_percentages_template=$(render_template ${CSV_TEMPLATE_FILE} "${RESULTS_PATH}/percentages.p")
 
 # Plot results
 GNUPLOT_COMMAND="${GNUPLOT_BIN} ${rendered_percentages_template}"
