@@ -107,7 +107,7 @@ AB_OUTPUT_FILE="${RESULTS_PATH}/summary.txt"
 # Create results dir
 mkdir -p ${RESULTS_PATH}
 
-
+echo -e "${0} - version ${VERSION}\n"
 
 if [ "${CONCURRENCY}" == "" ]; then
   echo "No concurrency set, using default value of ${DEFAULT_CONCURRENCY} simultanious clients"
@@ -120,7 +120,6 @@ if [ "${NUM_REQUESTS}" == "" ]; then
 fi
 
 # Run test
-echo -e "${0} - version ${VERSION}\n"
 AB_COMMAND="${AB_BIN} ${KEEPALIVE} -c ${CONCURRENCY} -n ${NUM_REQUESTS} -e ${CSV_RESULTS_FILE} -g ${PLOT_FILE} ${EXTRA_ARGS} ${URL}/ "
 
 echo ${AB_COMMAND}
