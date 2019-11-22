@@ -8,15 +8,10 @@
 # using the templates in the templates directory. It will also save apachebench
 # output in a file called summary.txt.
 #
-# Author: Juan Luis Baptiste <juan _at_ juanbaptiste _dot_ net>
+# Author: Juan Luis Baptiste <juan _at_ juanbaptiste _dot_ tech>
 #
 
-
-AB_BIN=/usr/bin/ab
-GNUPLOT_BIN=/usr/bin/gnuplot
-VERSION=0.1
-DEFAULT_CONCURRENCY=1
-DEFAULT_NUM_REQUESTS=1
+. ./functions.sh
 
 
 usage()
@@ -112,13 +107,9 @@ fi
 
 # Prepare ab parameters
 HOSTNAME="$(extract_hostname ${URL})"
-TEST_DATE="$(date +%Y-%m-%d-%H-%M-%S)"
 RESULTS_PATH="${PWD}/results/${HOSTNAME}/${TEST_DATE}"
-TEMPLATES_PATH="${PWD}/templates/"
 CSV_RESULTS_FILE="${RESULTS_PATH}/percentages.csv"
 PLOT_FILE="${RESULTS_PATH}/values.tsv"
-CSV_TEMPLATE_FILE="${TEMPLATES_PATH}/template_percentages.tpl"
-PLOT_TEMPLATE_FILE="${TEMPLATES_PATH}/template_values.tpl"
 AB_OUTPUT_FILE="${RESULTS_PATH}/summary.txt"
 
 # Create results dir
