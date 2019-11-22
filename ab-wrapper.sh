@@ -122,7 +122,7 @@ fi
 # Run test
 AB_COMMAND="${AB_BIN} ${KEEPALIVE} -c ${CONCURRENCY} -n ${NUM_REQUESTS} -e ${CSV_RESULTS_FILE} -g ${PLOT_FILE} ${EXTRA_ARGS} ${URL}/ "
 
-echo ${AB_COMMAND}
+echo -e "\n${AB_COMMAND}\n"
 out="$(${AB_COMMAND})"
 
 if [ $? -gt 0 ]; then
@@ -133,7 +133,7 @@ fi
 
 # Store test summary results to summary.txt
 echo -e "${out}" > ${AB_OUTPUT_FILE}
-
+echo -e "${out}"
 
 ##### Plot results
 
