@@ -14,7 +14,7 @@
 	set grid y
 
 	# x-axis label
-	set xlabel \"Requests\"
+	set xlabel \"Percentiles\"
 
 	# y-axis label
 	set ylabel \"Response time \(ms\)\"
