@@ -7,9 +7,10 @@ DEFAULT_CONCURRENCY=1
 DEFAULT_NUM_REQUESTS=1
 TEST_DATE="$(date +%Y-%m-%d-%H-%M-%S)"
 TEMPLATES_PATH="${PWD}/templates/"
-MERGE_TEMPLATE_FILE="${TEMPLATES_PATH}/template_merge.tpl"
 CSV_TEMPLATE_FILE="${TEMPLATES_PATH}/percentages.tpl"
 PLOT_TEMPLATE_FILE="${TEMPLATES_PATH}/values.tpl"
+MERGE_VALUES_TEMPLATE_FILE="${TEMPLATES_PATH}/merged_values.tpl"
+MERGE_PERCENTAGES_TEMPLATE_FILE="${TEMPLATES_PATH}/merged_percentages.tpl"
 
 function extract_hostname() {
   local url=$1
