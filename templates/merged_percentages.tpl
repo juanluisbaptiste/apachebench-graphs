@@ -21,8 +21,6 @@
 
   set pointsize 1
 
-  #set Loadpath {\"${RESULTS_PATH}\"}
-	# plot data from "server1.txt" and "server2.txt" using column 9 with smooth sbezier lines
-	#plot "server1.txt" using 9 smooth sbezier with lines title "server1:", \
-	#     "server2.txt" using 9 smooth sbezier with lines title "server2:"
-  plot ${PLOT_LINES}
+	set datafile separator \",\"
+
+  plot ${PLOT_PERCENTAGES_LINES}

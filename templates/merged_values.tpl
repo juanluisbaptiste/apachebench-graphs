@@ -21,4 +21,4 @@
 
   set pointsize 1
 
-  plot ${PLOT_LINES}
+  plot ${PLOT_VALUES_LINES}
