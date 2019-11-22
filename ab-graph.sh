@@ -38,32 +38,6 @@ called summary.txt
 EOF
 }
 
-function extract_hostname() {
-  local url=$1
-
-  echo "${url}" | awk -F/ '{print $3}'
-}
-
-function render_template() {
-  template_file=${1}
-  result_file=${2}
-
-  eval "echo \"$(cat ${template_file})\"" > "${result_file}"
-
-  echo ${result_file}
-
-}
-
-function render_template_percentages() {
-  rendered_template="${RESULTS_PATH}/percentages.p"
-  echo -e "$(render_template  ${CSV_TEMPLATE_FILE} "${rendered_template}")"
-}
-
-function render_template_values() {
-  rendered_template="${RESULTS_PATH}/values.p"
-  echo -e "$(render_template  ${PLOT_TEMPLATE_FILE} "${rendered_template}")"
-}
-
 # trap ctrl-c and call ctrl_c()
 trap ctrl_c INT
 
