@@ -102,8 +102,8 @@ RESULTS_PATH="${PWD}/results/${HOSTNAME}/${TEST_DATE}"
 TEMPLATES_PATH="${PWD}/templates/"
 CSV_RESULTS_FILE="${RESULTS_PATH}/percentages.csv"
 PLOT_FILE="${RESULTS_PATH}/values.tsv"
-CSV_TEMPLATE_FILE="${TEMPLATES_PATH}/template1.tpl"
-PLOT_TEMPLATE_FILE="${TEMPLATES_PATH}/template1.tpl"
+CSV_TEMPLATE_FILE="${TEMPLATES_PATH}/template_percentages.tpl"
+PLOT_TEMPLATE_FILE="${TEMPLATES_PATH}/template_values.tpl"
 AB_OUTPUT_FILE="${RESULTS_PATH}/summary.txt"
 
 # Create results dir
@@ -152,11 +152,12 @@ echo -e "Done."
 
 # Render percentages template
 echo -e "Plotting percentages results..."
-PLOT_LINES="\"${CSV_RESULTS_FILE}\" using 9 smooth sbezier with lines title \"${HOSTNAME}\""
+# Remove header line
+sed 1d ${CSV_RESULTS_FILE} > ${CSV_RESULTS_FILE}.fixed
+PLOT_LINES="\"${CSV_RESULTS_FILE}.fixed\" with lines"
 IMAGE_FILE="$(basename ${CSV_RESULTS_FILE})"
-fix_csv_results="$(sed 1d ${CSV_RESULTS_FILE})"
-echo ${fix_csv_results}> ${CSV_RESULTS_FILE}
 rendered_percentages_template=$(render_template_percentages)
+
 # Plot results
 ${GNUPLOT_BIN} ${rendered_percentages_template}
 echo -e "Done."
