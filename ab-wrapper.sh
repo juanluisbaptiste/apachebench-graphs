@@ -142,25 +142,30 @@ echo -e "\n${out}\n\n"
 # Render values template
 cd ${RESULTS_PATH} || exit
 echo -e "Plotting values results..."
+
 # Define plot lines
 PLOT_LINES="\"${PLOT_FILE}\" using 9 smooth sbezier with lines title \"${HOSTNAME}\""
 IMAGE_FILE="$(basename ${PLOT_FILE})"
 rendered_values_template=$(render_template_values)
+
 # Plot results
-${GNUPLOT_BIN} ${rendered_values_template}
+GNUPLOT_COMMAND="${GNUPLOT_BIN} ${rendered_values_template}"
+echo -e "\n${GNUPLOT_COMMAND}\n"
+${GNUPLOT_COMMAND}
 echo -e "Done."
 
 # Render percentages template
 echo -e "Plotting percentages results..."
 # Remove header line
 sed 1d ${CSV_RESULTS_FILE} > ${CSV_RESULTS_FILE}.fixed
-PLOT_LINES="\"${CSV_RESULTS_FILE}.fixed\" with lines"
+PLOT_LINES="\"${CSV_RESULTS_FILE}.fixed\"  with lines title \"${HOSTNAME}\""
 IMAGE_FILE="$(basename ${CSV_RESULTS_FILE})"
 rendered_percentages_template=$(render_template_percentages)
 
 # Plot results
-${GNUPLOT_BIN} ${rendered_percentages_template}
+GNUPLOT_COMMAND="${GNUPLOT_BIN} ${rendered_percentages_template}"
+echo -e "\n${GNUPLOT_COMMAND}\n"
+${GNUPLOT_COMMAND}
 echo -e "Done."
-
 
 cd .. || exit
