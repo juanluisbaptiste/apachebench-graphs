@@ -26,10 +26,10 @@ OPTIONS:
 -V    Debug mode.
 ```
 
-This script will plot [apachebench](https://httpd.apache.org/docs/2.4/programs/ab.html) results using gnuplot, and store test results
-in $PWD/results/website/date/. The script will create the plot files for gnuplot
+This script will plot [apachebench](https://httpd.apache.org/docs/2.4/programs/ab.html) results using gnuplot, and store them
+in _$PWD/results/$WESITEURL/$DATE/_. The script will create the plot files for gnuplot
 using the templates in the [templates directory](templates/). It will also save apachebench
-output in a file called summary.txt
+output in a file called _summary.txt_.
 
 
 For example, this command:
@@ -95,7 +95,7 @@ Percentage of the requests served within a certain time (ms)
 
 ### Plot templates
 
-You can use templates to customize the graphs. Please refere to [gnuplot](http://www.gnuplot.info/documentation.html) documentation for that. These are the default templates:
+You can use templates to customize the graphs. Please refer to [gnuplot](http://www.gnuplot.info/documentation.html) documentation for that. These are the default templates:
 
 * [values.p](example_results/values.p)
 * [percentages.p](example_results/percentages.p)
@@ -103,7 +103,7 @@ You can use templates to customize the graphs. Please refere to [gnuplot](http:/
 ### Plotted results
 
 #### Results
-![GitHub Logo](/example_results/values.tsv.png)
+![Results graph](/example_results/values.tsv.png)
 
 #### Percentiles
-![GitHub Logo](/example_results/percentages.csv.png)
+![Percentages graph](/example_results/percentages.csv.png)
