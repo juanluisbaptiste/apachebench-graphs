@@ -14,17 +14,17 @@ Helper script for ab-graph that can run multple configurable runs in one go.
 Usage: $0 OPTIONS
 
 OPTIONS:
--c    Start concurrent connections at  (default: 5)
--e    Stop concurrent connections at  (defalt: 25)
--s    Concurrent connections increment step (default: 5)
--n    Number of requests      (default: 500)
--u    Url to test             (mandatory)
+-c    Start concurrent connections at        (default: 5)
+-e    Stop concurrent connections at         (defalt: 25)
+-s    Concurrent connections increment step  (default: 5)
+-n    Number of requests                     (default: 500)
+-u    Url to test                            (mandatory)
 -w    Wait time between tests in seconds.
 -h    Print help.
 -V    Debug mode.
 
-This script will do multple runs of ab-graph incrementing the concurrent connections
-until al limit is reached.
+This script will do multple test runs of ab-graph incrementing the concurrent
+connections until the limit set by -e option is reached.
 
 EOF
 }
