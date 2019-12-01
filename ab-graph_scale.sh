@@ -16,6 +16,7 @@ Usage: $0 OPTIONS
 OPTIONS:
 -c    Start concurrent connections at        (default: 5)
 -e    Stop concurrent connections at         (defalt: 25)
+-k    Enable keepalive connections           (default: no)
 -s    Concurrent connections increment step  (default: 5)
 -n    Number of requests                     (default: 500)
 -u    Url to test                            (mandatory)
@@ -39,13 +40,15 @@ function ctrl_c() {
 }
 
 
-while getopts c:e:s:n:u:w:hV option
+while getopts c:e:ks:n:u:w:hV option
 do
   case "${option}"
   in
     c) START_AT="${OPTARG}"
        ;;
     e) END_AT="${OPTARG}"
+       ;;
+    k) ENABLE_KEEPALIVE=" -k "
        ;;
     s) STEP="${OPTARG}"
        ;;
@@ -77,7 +80,7 @@ n=${START_AT}
 while [[ ${n} -le ${END_AT} ]]; do
   echo -e "Running test...\n"
   echo -e "Current concurrency: ${n}/${END_AT}"
-  ./ab-graph.sh -u http://coronagrival.juanbaptiste.tech -k -n ${NUM_REQUESTS} -c ${n}
+  ./ab-graph.sh -u ${URL} ${ENABLE_KEEPALIVE} -n ${NUM_REQUESTS} -c ${n} ${ENABLE_KEEPALIVE}
   echo -e "Test done, waiting ${SLEEP} seconds before starting next test...\n"
   sleep ${SLEEP}
   n=$(( ${n} + ${STEP} ))
