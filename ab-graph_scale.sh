@@ -4,7 +4,7 @@ START_AT=10
 END_AT=25
 STEP=5
 NUM_REQUESTS=500
-SLEEP=120
+SLEEP=60
 
 usage()
 {
@@ -53,7 +53,7 @@ do
        ;;
     u) URL="${OPTARG}"
        ;;
-    u) SLEEP="${OPTARG}"
+    w) SLEEP="${OPTARG}"
        ;;
     h) usage
        exit
