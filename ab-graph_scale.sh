@@ -20,7 +20,7 @@ OPTIONS:
 -s    Concurrent connections increment step  (default: 5)
 -n    Number of requests                     (default: 500)
 -u    Url to test                            (mandatory)
--w    Wait time between tests in seconds.
+-w    Wait time between tests in seconds.    (default: 60s)
 -h    Print help.
 -V    Debug mode.
 
