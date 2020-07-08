@@ -1,6 +1,6 @@
 # apachebench-graph
 
-Helper script for apachebench to automate the plotting of test results.
+Helper scripts for apachebench to automate the plotting of test results.
 
 ## Requirements
 
@@ -11,7 +11,16 @@ Helper script for apachebench to automate the plotting of test results.
 
 ## Usage
 
-The script has the following options:
+There are three helper script included:
+
+* _ab_graph.sh_: Run an apache bench test and create plot result graphs using gnuplot.
+* _ab_graph_merge.sh_: Merge various ab_graph.sh results graphs into a single one.
+* _ab_graph_scale.sh_: Helper script for ab-graph that can run multple configurable _ab_graph.sh_ runs in one go
+
+
+### ab_graph.sh
+
+This script has the following options:
 
 ```
 Usage: $0 OPTIONS
@@ -38,12 +47,12 @@ For example, this command:
 ```
 Will create the following results:
 
-### Test results
+#### Test results
 
 * [values.csv](exmple_results/values.csv)
 * [percentages.csv](exmple_results/values.csv)
 
-### Test summary results
+#### Test summary results
 * summary.txt
 
 ```
@@ -93,17 +102,59 @@ Percentage of the requests served within a certain time (ms)
  100%  10434 (longest request)
 ```
 
-### Plot templates
+#### Plot templates
 
 You can use templates to customize the graphs. Please refer to [gnuplot](http://www.gnuplot.info/documentation.html) documentation for that. These are the default templates:
 
 * [values.p](example_results/values.p)
 * [percentages.p](example_results/percentages.p)
 
-### Plotted results
+#### Plotted results
 
-#### Results
+##### Results
 ![Results graph](/example_results/values.tsv.png)
 
-#### Percentiles
+##### Percentiles
 ![Percentages graph](/example_results/percentages.csv.png)
+
+### ab_graph_merge.sh
+
+With this script you can merge various results from ab_graph.sh into one single graph, useful to compare results. For example, this command will merge two test results into one:
+
+```
+./ab-graph_merge.sh $PWD/results/www.testsite.com/2020-04-23-00-30-12 $PWD/results/www.testsite.com/2020-04-22-23-34-50
+```
+
+The resulting merged results graph looks like this:
+
+#### Results
+![Merged results graph](/example_results/merged_results/merged_values.png)
+#### Percentiles
+![Merged percentiles graph](/example_results/merged_results/merged_percentages.png)
+
+
+
+### ab_graph_scale.sh
+
+This helper script can do multiple runs of _ab_graph.sh_ in one go. It has many configurable parameters:
+
+```
+Usage: ./ab-graph_scale.sh OPTIONS
+
+OPTIONS:
+-c    Start concurrent connections at        (default: 5)
+-e    Stop concurrent connections at         (defalt: 25)
+-k    Enable keepalive connections           (default: no)
+-s    Concurrent connections increment step  (default: 5)
+-n    Number of requests                     (default: 500)
+-u    Url to test                            (mandatory)
+-w    Wait time between tests in seconds.    (default: 60s)
+```
+
+For example:
+
+```
+./ab-graph_scale.sh -c 10 -e 50 -k -s 10 -n 1000 -u https://www.test.com -w 30
+```
+
+Will do 1000 requests starting with 10 concurrent connections up to 50 in increments of 10, using keep alives and waiting 30 seconds between tests.
