@@ -23,4 +23,4 @@
 
 	set datafile separator ","
 
-  plot "/home/juancho/git/apachebench-graph/results/www.testsite.com/2020-04-22-23-32-26/percentages.csv.fixed" with lines title "www.testsite.com - 2020-04-22-23-32-26","/home/juancho/git/apachebench-graph/results/www.testsite.com/2020-04-22-23-34-50/www.testsite.com.fixed" with lines title "www.testsite.com 2020-04-22-23-34-50"
+  plot "/home/juancho/git/apachebench-graph/results/grival2.ddbdev.xyz/2020-04-22-23-32-26/percentages.csv.fixed" with lines title "grival2.ddbdev.xyz - 2020-04-22-23-32-26","/home/juancho/git/apachebench-graph/results/grival.ddbdev.xyz/2020-04-22-23-34-50/percentages.csv.fixed" with lines title "grival.ddbdev.xyz - 2020-04-22-23-34-50"
