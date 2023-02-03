@@ -29,7 +29,7 @@ OPTIONS:
 -u    Url to test             (mandatory)
 -h    Print help.
 -V    Debug mode.
--l    Custom Legend to line   (default: HOSTNAME)
+-l    Custom legend chart     (default: hostname)
 
 This script will plot apachebench results using gnuplot, and store test results
 in $PWD/results/website/date/. The script will create the plot files for gnuplot
