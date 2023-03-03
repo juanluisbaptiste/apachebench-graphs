@@ -5,6 +5,7 @@ END_AT=25
 STEP=5
 NUM_REQUESTS=500
 SLEEP=60
+COMMAND_TITLE=""
 
 usage()
 {
@@ -23,6 +24,7 @@ OPTIONS:
 -w    Wait time between tests in seconds.    (default: 60s)
 -h    Print help.
 -V    Debug mode.
+-l    Custom Legend to line   (default: HOSTNAME)
 
 This script will do multple test runs of ab-graph incrementing the concurrent
 connections until the limit set by -e option is reached.
@@ -40,10 +42,12 @@ function ctrl_c() {
 }
 
 
-while getopts c:e:ks:n:u:w:hV option
+while getopts c:e:ks:n:l:u:w:hV option
 do
   case "${option}"
   in
+    l) TITLE="${OPTARG}"
+       ;;
     c) START_AT="${OPTARG}"
        ;;
     e) END_AT="${OPTARG}"
@@ -75,12 +79,16 @@ if [ $# -lt 1 ] || [ "${URL}" == "" ]; then
   exit 1
 fi
 
+#Custom Parameter
+if [[ ! -z "${TITLE}" ]]; then
+   COMMAND_TITLE="-l ${TITLE}"
+fi
 
 n=${START_AT}
 while [[ ${n} -le ${END_AT} ]]; do
   echo -e "Running test...\n"
   echo -e "Current concurrency: ${n}/${END_AT}"
-  ./ab-graph.sh -u ${URL} ${ENABLE_KEEPALIVE} -n ${NUM_REQUESTS} -c ${n} ${ENABLE_KEEPALIVE}
+  ./ab-graph.sh -u ${URL} ${ENABLE_KEEPALIVE} -n ${NUM_REQUESTS} -c ${n} ${COMMAND_TITLE}
   echo -e "Test done, waiting ${SLEEP} seconds before starting next test...\n"
   sleep ${SLEEP}
   n=$(( ${n} + ${STEP} ))

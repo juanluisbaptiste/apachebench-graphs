@@ -32,6 +32,7 @@ OPTIONS:
 -n    Number of requests      (default: 1)
 -u    Url to test             (mandatory)
 -h    Print help.
+-l    Custom legend chart     (default: hostname)
 -V    Debug mode.
 ```
 
@@ -148,6 +149,7 @@ OPTIONS:
 -s    Concurrent connections increment step  (default: 5)
 -n    Number of requests                     (default: 500)
 -u    Url to test                            (mandatory)
+-l    Custom legend chart                    (default: hostname)
 -w    Wait time between tests in seconds.    (default: 60s)
 ```
 

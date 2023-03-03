@@ -29,6 +29,7 @@ OPTIONS:
 -u    Url to test             (mandatory)
 -h    Print help.
 -V    Debug mode.
+-l    Custom legend chart     (default: hostname)
 
 This script will plot apachebench results using gnuplot, and store test results
 in $PWD/results/website/date/. The script will create the plot files for gnuplot
@@ -48,7 +49,7 @@ function ctrl_c() {
 }
 
 
-while getopts c:kE:n:u:hV option
+while getopts c:kE:n:u:l:hV option
 do
   case "${option}"
   in
@@ -65,6 +66,8 @@ do
     h) usage
        exit
        ;;
+    l) TITLE="${OPTARG}"
+       ;;       
     V) set -x
        ;;
     ?) usage
@@ -97,6 +100,12 @@ if [ "${CONCURRENCY}" == "" ]; then
   CONCURRENCY=${DEFAULT_CONCURRENCY}
 fi
 
+if [[ ! -z "${TITLE}" ]]; then
+   CHART_TITLE="${TITLE}"
+else
+   CHART_TITLE="${HOSTNAME}"
+fi
+
 if [ "${NUM_REQUESTS}" == "" ]; then
   echo "No number of requests set, using default value of ${DEFAULT_NUM_REQUESTS} requests"
   NUM_REQUESTS=${DEFAULT_NUM_REQUESTS}
@@ -124,7 +133,7 @@ cd ${RESULTS_PATH} || exit
 echo -e "Plotting values results..."
 
 # Define plot lines
-PLOT_LINES="\"${PLOT_FILE}\" using 9 smooth sbezier with lines title \"${HOSTNAME}\""
+PLOT_LINES="\"${PLOT_FILE}\" using 9 smooth sbezier with lines title \"${CHART_TITLE}\""
 IMAGE_FILE="$(basename ${PLOT_FILE})"
 rendered_values_template=$(render_template ${PLOT_TEMPLATE_FILE} "${RESULTS_PATH}/values.p")
 
@@ -138,7 +147,7 @@ echo -e "Done."
 echo -e "Plotting percentages results..."
 # Remove header line
 sed 1d ${CSV_RESULTS_FILE} > ${CSV_RESULTS_FILE}.fixed
-PLOT_LINES="\"${CSV_RESULTS_FILE}.fixed\"  with lines title \"${HOSTNAME}\""
+PLOT_LINES="\"${CSV_RESULTS_FILE}.fixed\"  with lines title \"${CHART_TITLE}\""
 IMAGE_FILE="$(basename ${CSV_RESULTS_FILE})"
 rendered_percentages_template=$(render_template ${CSV_TEMPLATE_FILE} "${RESULTS_PATH}/percentages.p")
 
