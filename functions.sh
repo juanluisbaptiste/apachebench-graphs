@@ -1,7 +1,7 @@
 #!/bin/bash
 
-AB_BIN=/usr/bin/ab
-GNUPLOT_BIN=/usr/bin/gnuplot
+AB_BIN="$(which ab)"
+GNUPLOT_BIN="$(which gnuplot)"
 VERSION=0.2
 DEFAULT_CONCURRENCY=1
 DEFAULT_NUM_REQUESTS=1
